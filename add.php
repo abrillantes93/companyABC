@@ -1,0 +1,97 @@
+<?php
+	include('db.php');
+
+	$itemNumber = $description = $size = $color = $price = '';
+	$errors = array('itemNumber' => '', 'description' => '', 'size' => '', 'color' => '', 'price' => '');
+
+	if(isset($_POST['submit'])){
+		
+		if(empty($_POST['itemNumber'])){
+			$errors['itemNumber'] = 'An item number is required';
+		} else{
+			$itemNumber = $_POST['itemNumber'];
+			if(!is_numeric($itemNumber)){
+				$errors['itemNumber'] = 'Item Number must be a number';
+			}
+		}
+
+		if(empty($_POST['description'])){
+			$errors['description'] = 'A description is required';
+		} else{
+			$description = $_POST['description'];
+			if(!preg_match('/^[a-zA-Z\s]+$/', $description)){
+				$errors['description'] = 'Description must be letters only';
+			}
+		}
+
+		if(empty($_POST['size'])){
+			$errors['size'] = 'A size is required';
+		} else{
+			$size = $_POST['size'];
+			if(!preg_match('/^[a-zA-Z\s]+$/', $size)){
+				$errors['size'] = 'Size must be letters only';
+			}
+		}
+
+		if(empty($_POST['color'])){
+			$errors['color'] = 'A color is required';
+		} else{
+			$color = $_POST['color'];
+			if(!preg_match('/^[a-zA-Z\s]+$/', $color)){
+				$errors['color'] = 'Color must be letters only';
+			}
+		}
+
+		if(empty($_POST['price'])){
+			$errors['price'] = 'A price is required';
+		} else{
+			$price = $_POST['price'];
+			if(!is_numeric($price)){
+				$errors['price'] = 'Price must be a number';
+			}
+		}
+
+		if(array_filter($errors)){
+			echo 'Errors in form';
+		} else {
+			$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['itemNumber' => $itemNumber, 'description' => $description, 'size' => $size, 'color' => $color, 'price' => $price]);
+			echo 'Success';
+		}
+
+	}
+?>
+
+<!DOCTYPE html>
+<html>
+	
+	<?php include('header.php'); ?>
+
+	<section>
+		<h4>Add a sale</h4>
+		<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+			<label>Item Number</label>
+			<input type="text" name="itemNumber" value="<?php echo htmlspecialchars($itemNumber) ?>">
+			<div class="red-text"><?php echo $errors['itemNumber']; ?></div>
+			<label>Description</label>
+			<input type="text" name="description" value="<?php echo htmlspecialchars($description) ?>">
+			<div class="red-text"><?php echo $errors['description']; ?></div>
+			<label>Size</label>
+			<input type="text" name="size" value="<?php echo htmlspecialchars($size) ?>">
+			<div class="red-text"><?php echo $errors['size']; ?></div>
+			<label>Color</label>
+			<input type="text" name="color" value="<?php echo htmlspecialchars($color) ?>">
+			<div class="red-text"><?php echo $errors['color']; ?></div>
+			<label>Price</label>
+			<input type="text" name="price" value="<?php echo htmlspecialchars($price) ?>">
+			<div class="red-text"><?php echo $errors['price']; ?></div>
+			<div>
+				<input type="submit" name="submit" value="Submit">
+			</div>
+		</form>
+	</section>
+
+	<?php include('footer.php'); ?>
+
+</html>
