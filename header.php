@@ -18,6 +18,8 @@
             background-color: lightgray;
             padding: 20px;
         }
+		
+	.red-text { color: red; }
 
   </style>
 </head>
