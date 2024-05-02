@@ -1,4 +1,6 @@
 <?php
+	include('config.php');
+
 	include('db.php');
 
 		$selected_color = $_POST['colors'];

@@ -13,13 +13,15 @@
 	display: inline;
 	}
 	.center {
-            width: 300px; /* Set width of the div */
-            margin: 0 auto; /* Set left and right margin to auto */
+            width: 300px; 
+            margin: 0 auto; 
             background-color: lightgray;
             padding: 20px;
         }
 		
 	.red-text { color: red; }
+
+	
 
   </style>
 </head>

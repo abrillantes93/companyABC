@@ -10,7 +10,7 @@
   $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
   // Check Connection using if statement 
-  if(!$pdo){
+  if(!$pdo){ 
     // Connection Failed
     echo 'Failed to connect to MySQL '. mysqli_connect_errno();
   } 

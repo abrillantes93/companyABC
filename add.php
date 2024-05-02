@@ -1,8 +1,11 @@
 <?php
+	include('config.php');
+
 	include('db.php');
 
-	// Variable declarations
-	$itemNumber = $description = $size = $color = $price = $formError = $formSuccess = '';
+	// Variable declarations - inputs and messages
+	$itemNumber = $description = $size = $color = $price = $formMsg = '';
+	//error array 
 	$errors = array('itemNumber' => '', 'description' => '', 'size' => '', 'color' => '', 'price' => '');
 	
 	// Color and size options
@@ -12,9 +15,9 @@
 	if(isset($_POST['submit'])){ 
 		// input sanitization
 		$itemNumber = filter_input(INPUT_POST, 'itemNumber', FILTER_SANITIZE_NUMBER_INT);
-		$description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-		$size = filter_input(INPUT_POST, 'size', FILTER_SANITIZE_STRING);
-		$color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_STRING);
+		$description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
+		$size = filter_input(INPUT_POST, 'size', FILTER_SANITIZE_SPECIAL_CHARS);
+		$color = filter_input(INPUT_POST, 'color', FILTER_SANITIZE_SPECIAL_CHARS);
 		$price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 		//input validation
 		if(empty($itemNumber)){
@@ -32,7 +35,7 @@
 		if(empty($size)){
 			$errors['size'] = 'A size is required';
 		} elseif(!in_array(strtolower($size), $standard_sizes)){
-			$errors['size'] = 'Not a valid size';
+			$errors['size'] = 'Not a valid size(s,m,l,xl,xxl)';
 		}
 
 		if(empty($color)){
@@ -48,12 +51,12 @@
 		}
 
 		if(array_filter($errors)){
-			$formError = "Errors in form!!";
-		} else {
+			$formMsg = "Errors in form!!";
+		} else { //PDO
 			$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['itemNumber' => $itemNumber, 'description' => $description, 'size' => $size, 'color' => $color, 'price' => $price]);
-			$formSuccess = "Order Added!";
+			$formMsg = "Order Added!";
 			$itemNumber = $description = $size = $color = $price = $formError = '';
 
 		}
@@ -68,23 +71,23 @@
 	<section>
 		<h4 class="center">Add a sale</h4>
 		<!-- error/success message -->
-		<p class="red-text center"><?php echo $formError ? $formError : $formSuccess; ?></p>
+		<p class="red-text center"><?php echo $formMsg; ?></p>
 
 		<form class="form-horizontal center" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 			<label>Item Number</label>
-			<input type="text" name="itemNumber" value="<?php echo htmlspecialchars($itemNumber) ?>">
+			<input class="form-control" type="text" name="itemNumber" value="<?php echo htmlspecialchars($itemNumber) ?>">
 			<div class="red-text"><?php echo $errors['itemNumber']; ?></div>
 			<label>Description</label>
-			<input type="text" name="description" value="<?php echo htmlspecialchars($description) ?>">
+			<input class="form-control" type="text" name="description" value="<?php echo htmlspecialchars($description) ?>">
 			<div class="red-text"><?php echo $errors['description']; ?></div>
 			<label>Size</label>
-			<input type="text" name="size" value="<?php echo htmlspecialchars($size) ?>">
+			<input class="form-control" type="text" name="size" value="<?php echo htmlspecialchars($size) ?>">
 			<div class="red-text"><?php echo $errors['size']; ?></div>
 			<label>Color</label>
-			<input type="text" name="color" value="<?php echo htmlspecialchars($color) ?>">
+			<input class="form-control" type="text" name="color" value="<?php echo htmlspecialchars($color) ?>">
 			<div class="red-text"><?php echo $errors['color']; ?></div>
 			<label>Price</label>
-			<input type="text" name="price" value="<?php echo htmlspecialchars($price) ?>">
+			<input class="form-control" type="text" name="price" value="<?php echo htmlspecialchars($price) ?>">
 			<div class="red-text"><?php echo $errors['price']; ?></div>
 			<div>
 				<input class="btn btn-default" type="submit" name="submit" value="Submit">
