@@ -41,6 +41,12 @@
         }
     </style>
 <body>
+<nav >
+    <div class="center">
+		<a href="index.php" >CompanyABC</a><br>
+      <a class="btn btn-default" href="index.php" >Home</a>
+    </div>
+  </nav>
 	<br>
 	<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 	  <label for="colors">Choose a color to filter:</label>
@@ -81,4 +87,5 @@
             <?php endforeach; ?>
         </table>
     <?php endif; ?>
+	<?php include('footer.php'); ?>
 </html>

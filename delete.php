@@ -40,7 +40,7 @@
                 <label>Enter a order number to delete: </label>
 				<input class="form-control" type="text" name="orderNumber" value="<?php echo htmlspecialchars($orderNumber) ?>">
                 <div class="red-text"><?php echo $errors['orderNumber']; ?></div>
-				<input type="submit" name="submit" value="Delete" class="btn brand z-depth-0">
+				<input class="btn btn-default" type="submit" name="submit" value="Delete">
                 <a class="btn btn-default" href="index.php" role="button">Cancel</a>
 	</form>
 
