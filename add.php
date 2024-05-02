@@ -1,10 +1,17 @@
 <?php
 	include('db.php');
 
-	$itemNumber = $description = $size = $color = $price = '';
-	$errors = array('itemNumber' => '', 'description' => '', 'size' => '', 'color' => '', 'price' => '');
+	//variable declarations
 
-	if(isset($_POST['submit'])){
+	$itemNumber = $description = $size = $color = $price = $formError = '';
+	$errors = array('itemNumber' => '', 'description' => '', 'size' => '', 'color' => '', 'price' => '');
+	
+	//color size options
+	$standard_colors = array('black','blue','green','purple','red','white','yellow');
+	$standard_sizes = array('s','m','l','xl','xxl');
+
+
+	if(isset($_POST['submit'])){ //input validation
 		
 		if(empty($_POST['itemNumber'])){
 			$errors['itemNumber'] = 'An item number is required';
@@ -52,7 +59,7 @@
 		}
 
 		if(array_filter($errors)){
-			echo 'Errors in form';
+			$formError = "Errors in form!!";
 		} else {
 			$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
             $stmt = $pdo->prepare($sql);
@@ -67,10 +74,17 @@
 <html>
 	
 	<?php include('header.php'); ?>
-
+	<style>
+		.red-text { color: red; }
+	</style>
 	<section>
 		<h4>Add a sale</h4>
-		<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+		<p class="red-text"><?php if(array_filter($errors)){
+			echo $formError;
+		} ?></p>
+
+
+		<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 			<label>Item Number</label>
 			<input type="text" name="itemNumber" value="<?php echo htmlspecialchars($itemNumber) ?>">
 			<div class="red-text"><?php echo $errors['itemNumber']; ?></div>
@@ -87,7 +101,10 @@
 			<input type="text" name="price" value="<?php echo htmlspecialchars($price) ?>">
 			<div class="red-text"><?php echo $errors['price']; ?></div>
 			<div>
-				<input type="submit" name="submit" value="Submit">
+				<input class="btn btn-default" type="submit" name="submit" value="Submit">
+				<a class="btn btn-default" href="index.php" role="button">Cancel</a>
+
+
 			</div>
 		</form>
 	</section>

@@ -2,77 +2,78 @@
 
 	include('db.php');
 
-	// $itemNumber = $description = $size = $color = $price = '';
-	// $errors = array('itemNumber' => '', 'description' => '', 'size' => '', 'color' => '', 'price' => '');
-		$itemNumber = 100; $description = 'shirt'; $size = 'L'; $color = 'blue'; $price = 9.99;
-			$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
-            $stmt = $pdo->prepare($sql);
-			if (!$stmt) {
-				echo "\nPDO::errorInfo():\n";
-				print_r($pdo->errorInfo());
-			} else {
-            $stmt->execute(['ItemNumber' => $itemNumber, 'Description' => $description, 'Size' => $size, 'Color' => $color, 'Price' => $price]);
-			}
-	// if(isset($_POST['submit'])){
+	$itemNumber = $description = $size = $color = $price = '';
+	$errors = array('itemNumber' => '', 'description' => '', 'size' => '', 'color' => '', 'price' => '');
+	
+	
+	$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
+	$stmt = $pdo->prepare($sql);
+	if (!$stmt) {
+		echo "\nPDO::errorInfo():\n";
+		print_r($pdo->errorInfo());
+	} else {
+	$stmt->execute(['ItemNumber' => $itemNumber, 'Description' => $description, 'Size' => $size, 'Color' => $color, 'Price' => $price]);
+	}
+	if(isset($_POST['submit'])){
 		
 	
-	// 	if(empty($_POST['itemNumber'])){
-	// 		$errors['itemNumber'] = 'An item number is required';
-	// 	} else{
-	// 		$itemNumber = $_POST['itemNumber'];
-	// 		if(is_numeric($itemNumber)){
-	// 			$errors['itemNumber'] = 'Item Number must be a number';
-	// 		}
-	// 	}
+		if(empty($_POST['itemNumber'])){
+			$errors['itemNumber'] = 'An item number is required';
+		} else{
+			$itemNumber = $_POST['itemNumber'];
+			if(is_numeric($itemNumber)){
+				$errors['itemNumber'] = 'Item Number must be a number';
+			}
+		}
 
-	// 	if(empty($_POST['description'])){
-	// 		$errors['description'] = 'A description is required';
-	// 	} else{
-	// 		$description = $_POST['description'];
-	// 		if(!preg_match('/^[a-zA-Z\s]+$/', $description)){
-	// 			$errors['description'] = 'Description must be letters only';
-	// 		}
-	// 	}
+		if(empty($_POST['description'])){
+			$errors['description'] = 'A description is required';
+		} else{
+			$description = $_POST['description'];
+			if(!preg_match('/^[a-zA-Z\s]+$/', $description)){
+				$errors['description'] = 'Description must be letters only';
+			}
+		}
 
 		
-	// 	if(empty($_POST['size'])){
-	// 		$errors['size'] = 'A size is required';
-	// 	} else{
-	// 		$size = $_POST['size'];
-	// 		if(!preg_match('/^[a-zA-Z\s]+$/', $size)){
-	// 			$errors['size'] = 'Size must be letters only';
-	// 		}
-	// 	}
+		if(empty($_POST['size'])){
+			$errors['size'] = 'A size is required';
+		} else{
+			$size = $_POST['size'];
+			if(!preg_match('/^[a-zA-Z\s]+$/', $size)){
+				$errors['size'] = 'Size must be letters only';
+			}
+		}
 
-	// 	if(empty($_POST['color'])){
-	// 		$errors['color'] = 'A color is required';
-	// 	} else{
-	// 		$color = $_POST['color'];
-	// 		if(!preg_match('/^[a-zA-Z\s]+$/', $color)){
-	// 			$errors['color'] = 'Color must be letters only';
-	// 		}
-	// 	}
+		if(empty($_POST['color'])){
+			$errors['color'] = 'A color is required';
+		} else{
+			$color = $_POST['color'];
+			if(!preg_match('/^[a-zA-Z\s]+$/', $color)){
+				$errors['color'] = 'Color must be letters only';
+			}
+		}
 
-	// 	if(empty($_POST['price'])){
-	// 		$errors['price'] = 'A price is required';
-	// 	} else{
-	// 		$price = $_POST['price'];
-	// 		if(is_numeric($price)){
-	// 			$errors['price'] = 'Price must be a number';
-	// 		}
-	// 	}
-	// 	if(array_filter($errors)){
-	// 		echo 'errors in form';
-	// 	} else {
-	// 		// escape sql chars 
-	// 		$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
-    //         $stmt = $pdo->prepare($sql);
-    //         $stmt->execute(['ItemNumber' => $itemNumber, 'Description' => $description, 'Size' => $size, 'Color' => $color, 'Price' => $price]);
+		if(empty($_POST['price'])){
+			$errors['price'] = 'A price is required';
+		} else{
+			$price = $_POST['price'];
+			if(is_numeric($price)){
+				$errors['price'] = 'Price must be a number';
+			}
+		}
+		if(array_filter($errors)){
+			echo 'errors in form';
+		} else {
+			// escape sql chars 
+			$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['ItemNumber' => $itemNumber, 'Description' => $description, 'Size' => $size, 'Color' => $color, 'Price' => $price]);
 			
 
-	// 	}
+		}
 
-	// } 
+	} 
 
 
 ?>

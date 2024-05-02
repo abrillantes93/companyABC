@@ -1,30 +1,35 @@
 <head>
 	<title>CompanyABC</title>
-	<!-- Compiled and minified CSS -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  
   <style type="text/css">
-	  .brand{
-	  	background: #cbb09c !important;
-	  }
-  	.brand-text{
-  		color: #cbb09c !important;
-  	}
-  	form{
-  		max-width: 460px;
-  		margin: 20px auto;
-  		padding: 20px;
-  	}
+		ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	}
+
+	li {
+	display: inline;
+	}
+	.center {
+            width: 300px; /* Set width of the div */
+            margin: 0 auto; /* Set left and right margin to auto */
+            background-color: lightgray;
+            padding: 20px;
+        }
+
   </style>
 </head>
-<body class="grey lighten-4">
-	<nav class="white z-depth-0">
-    <div class="container">
-      <a href="index.php" class="brand-logo brand-text">CompanyABC</a><br>
-      <ul id="nav-mobile" class="right hide-on-small-and-down">
-	    <li><a href="index.php" class="btn brand z-depth-0">Home</a></li>
-        <li><a href="view.php" class="btn brand z-depth-0">View</a></li>
-		<li><a href="add.php" class="btn brand z-depth-0">Add</a></li>
-		<li><a href="delete.php" class="btn brand z-depth-0">Delete</a></li><br>
+<body >
+	<nav >
+    <div class="center">
+      <a href="index.php" >CompanyABC</a><br>
+      <ul >
+	    <li><a class="btn btn-default" href="index.php" >Home</a></li>
+        <li><a class="btn btn-default" href="view.php" >View</a></li>
+		<li><a class="btn btn-default" href="add.php" >Add</a></li>
+		<li><a class="btn btn-default" href="delete.php" >Delete</a></li><br>
       </ul>
     </div>
   </nav>

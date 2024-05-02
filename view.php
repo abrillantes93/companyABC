@@ -40,7 +40,7 @@
     </style>
 <body>
 	<br>
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+	<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 	  <label for="colors">Choose a color to filter:</label>
 	  <select name="colors" id="colors">
 	    <option value="black">Black</option>
@@ -54,9 +54,12 @@
 	  <br><br>
 	  <input type="submit" value="Filter">
 	</form>
-	<?php echo 'Number of Records: ' . $recordCount ?>
+	
+	
 </body>
 <?php if(isset($sales)): ?>
+	<?php echo 'Number of Records: ' . $recordCount . '<br>';
+			echo 'Displaying: ' . $selected_color ?>
         <table>
             <tr>
                 <th>Order Number</th>
