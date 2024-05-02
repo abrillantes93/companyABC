@@ -65,7 +65,7 @@
 		if(array_filter($errors)){
 			echo 'errors in form';
 		} else {
-			// escape sql chars 
+			
 			$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['ItemNumber' => $itemNumber, 'Description' => $description, 'Size' => $size, 'Color' => $color, 'Price' => $price]);

@@ -3,7 +3,7 @@
 
 	//variable declarations
 
-	$itemNumber = $description = $size = $color = $price = $formError = '';
+	$itemNumber = $description = $size = $color = $price = $formError = $formSuccess = '';
 	$errors = array('itemNumber' => '', 'description' => '', 'size' => '', 'color' => '', 'price' => '');
 	
 	//color size options
@@ -64,7 +64,7 @@
 			$sql = 'INSERT INTO sales(ItemNumber, Description, Size, Color, Price) VALUES(:itemNumber, :description, :size, :color, :price)';
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['itemNumber' => $itemNumber, 'description' => $description, 'size' => $size, 'color' => $color, 'price' => $price]);
-			echo 'Success';
+			$formSuccess = "Order Added!";
 		}
 
 	}
@@ -81,7 +81,10 @@
 		<h4>Add a sale</h4>
 		<p class="red-text"><?php if(array_filter($errors)){
 			echo $formError;
-		} ?></p>
+		} else{
+			echo $formSuccess;
+			$itemNumber = $description = $size = $color = $price = $formError = $formSuccess = '';
+		}?></p>
 
 
 		<form class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
